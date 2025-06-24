@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>사진 촬영</title>
+  <style>
+    @font-face {
+      font-family: 'UhBeeSeulvely';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_five@.2.0/UhBeeSeulvely.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    body {
+      font-family: 'UhBeeSeulvely', sans-serif;
+      background-color: #fce4ec;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    video,
+    canvas {
+      max-width: 100vw;
+      max-height: 100vh;
+      object-fit: cover;
+      border: none;
+      border-radius: 0;
+    }
+
+    video {
+      transform: scaleX(-1);
+      /* 좌우 반전 효과 */
+    }
+
+    .buttons {
+      position: absolute;
+      bottom: 150px;
+      display: flex;
+      gap: 20px;
+    }
+
+    button {
+      font-family: 'UhBeeSeulvely';
+      font-size: 24px;
+      padding: 12px 30px;
+      background-color: #ff80ab;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #f06292;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <video id="video" autoplay playsinline></video>
+    <canvas id="canvas" style="display:none;"></canvas>
+
+    <div class="buttons">
+      <button id="shoot-btn" onclick="takePhoto()">📸 촬영</button>
+      <button id="confirm-btn" onclick="goToResult()" style="display:none;">✅ 궁합 확인하기 .. (기대 돼)</button>
+    </div>
+  </div>
+
+  <script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const context = canvas.getContext('2d');
+    const shootBtn = document.getElementById('shoot-btn');
+    const confirmBtn = document.getElementById('confirm-btn');
+
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        video.srcObject = stream;
+      });
+
+    function takePhoto() {
+      const vw = video.videoWidth;
+      const vh = video.videoHeight;
+      canvas.width = vw;
+      canvas.height = vh;
+
+      // 좌우 반전 저장 (거울처럼 저장)
+      context.save();
+      context.translate(vw, 0);
+      context.scale(-1, 1);
+      context.drawImage(video, 0, 0, vw, vh);
+      context.restore();
+
+      const imageData = canvas.toDataURL('image/png');
+      localStorage.setItem('photo', imageData);
+
+      video.style.display = 'none';
+      canvas.style.display = 'block';
+      shootBtn.style.display = 'none';
+      confirmBtn.style.display = 'inline-block';
+    }
+
+
+    function goToResult() {
+      window.location.href = 'result.html';
+    }
+  </script>
+</body>
+
+</html>

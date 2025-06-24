@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>과목 선택</title>
+  <style>
+    @font-face {
+      font-family: 'UhBeeSeulvely';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_five@.2.0/UhBeeSeulvely.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'UhBeeSeulvely';
+      background-color: #fff3e0;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 20px;
+      width: 90vw;
+      max-width: 1000px;
+      height: 50vh;
+    }
+
+    button {
+      font-family: 'UhBeeSeulvely';
+      font-size: 20px;
+      background-color: #ffcc80;
+      border: none;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #ffb74d;
+    }
+  </style>
+</head>
+<body>
+  <h2>관심 있는 교과를 선택하세요</h2>
+  <div class="grid">
+    <button onclick="selectSubject('프로그래밍')">프로그래밍</button>
+    <button onclick="selectSubject('데이터 과학')">데이터 과학</button>
+    <button onclick="selectSubject('인공지능 기초')">인공지능 기초</button>
+    <button onclick="selectSubject('소프트웨어와 생활')">소프트웨어와 생활</button>
+    <button onclick="selectSubject('정보과학')">정보과학</button>
+    <button onclick="selectSubject('사물인터넷과 센서제어')">사물인터넷과 센서제어</button>
+    <button onclick="selectSubject('응용프로그래밍개발')">응용프로그래밍개발</button>
+    <button onclick="selectSubject('빅데이터 분석')">빅데이터 분석</button>
+  </div>
+
+  <script>
+    function selectSubject(subject) {
+      localStorage.setItem('subject', subject);
+      window.location.href = 'camera.html';
+    }
+  </script>
+</body>
+</html>

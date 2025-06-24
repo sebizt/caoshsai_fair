@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>출력 결과</title>
+  <style>
+    @font-face {
+      font-family: 'UhBeeSeulvely';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_five@.2.0/UhBeeSeulvely.woff') format('woff');
+    }
+    body {
+      font-family: 'UhBeeSeulvely', sans-serif;
+      background-color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .frame-container {
+      position: relative;
+      width: 512px;
+      height: 900px;
+      background-image: url('frame.png');
+      background-size: cover;
+    }
+    .photo-area {
+      position: absolute;
+      top: 140px;
+      left: 18px;
+      width: 480px;
+      height: 350px;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+    .photo-area img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .heart-text {
+      position: absolute;
+      bottom: 300px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 40px;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .random-number {
+      position: absolute;
+      bottom: 230px;
+      width: 100%;
+      text-align: center;
+      font-size: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="frame-container">
+    <div class="photo-area">
+      <img id="photo" src="" alt="촬영한 사진">
+    </div>
+    <div class="heart-text" id="heart"></div>
+    <div class="random-number" id="rand-score"></div>
+  </div>
+
+  <script>
+    const name = localStorage.getItem('username') || '이름 없음';
+    const subject = localStorage.getItem('subject') || '미선택';
+    const photo = localStorage.getItem('photo') || '';
+    const rand = (99 + Math.random()).toFixed(5);
+
+    document.getElementById('heart').innerText = `${name}♥${subject}`;
+    document.getElementById('photo').src = photo;
+    document.getElementById('rand-score').innerText = rand + '%';
+  </script>
+</body>
+</html>
